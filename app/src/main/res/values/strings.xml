@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">Currency App</string>
-    <string name="baseUrl">https://data.fixer.io/api/</string>
+    <string name="details">Details</string>
 </resources>
