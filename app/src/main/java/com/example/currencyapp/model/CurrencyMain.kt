@@ -6,10 +6,10 @@ package com.example.currencyapp.model
  * @since 21/3/2022
  */
 data class CurrencyMain(
-    val base: String,
-    val date: String,
-    val rates: Rates,
-    val success: Boolean,
-    val timestamp: Int
+    val base: String? = null,
+    val date: String? = null,
+    val rates: LinkedHashMap<String, Double>,
+    val success: Boolean? = null,
+    val timestamp: Int? = null,
 )
 

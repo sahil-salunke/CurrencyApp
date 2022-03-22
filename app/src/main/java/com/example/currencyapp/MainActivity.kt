@@ -11,6 +11,7 @@ import dagger.hilt.android.AndroidEntryPoint
  * @author Sahil Salunke
  * @since 15/3/2022
  */
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

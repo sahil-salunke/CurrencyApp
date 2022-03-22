@@ -1,11 +1,10 @@
 package com.example.currencyapp.network
 
-import com.example.currencyapp.IConstants
+import com.example.currencyapp.constants.IConstants
 import com.example.currencyapp.model.CurrencyMain
-import org.json.JSONObject
+import com.example.currencyapp.model.CurrencyNames
 import retrofit2.Response
 import retrofit2.http.GET
-import retrofit2.http.POST
 import retrofit2.http.Query
 
 /**
@@ -15,12 +14,13 @@ import retrofit2.http.Query
  */
 interface CurrencyService {
 
-    @GET("/symbols")
+    @GET("symbols")
     suspend fun getCountrySymbols(@Query("access_key") accessKey: String = IConstants.accessKey)
-            : Response<JSONObject>
+            : Response<CurrencyNames>
 
     @GET("latest")
-    suspend fun getCurrency(@Query("access_key") accessKey: String = IConstants.accessKey, @Query("format") format:Int = 1)
-            : Response<CurrencyMain>
+    suspend fun getCurrency(
+        @Query("access_key") accessKey: String = IConstants.accessKey
+    ): Response<CurrencyMain>
 
 }
