@@ -1,7 +1,6 @@
 package com.example.currencyapp.repository
 
 import com.example.currencyapp.network.CurrencyService
-import com.example.currencyapp.network.RetrofitBuilder
 import javax.inject.Inject
 
 /**
@@ -12,6 +11,6 @@ import javax.inject.Inject
 class HomeRepository @Inject constructor(private val currencyService: CurrencyService) {
 
     suspend fun getCurrencySymbols() = currencyService.getCountrySymbols()
-    suspend fun getCurrency(from: String) = currencyService.getCurrency()
+    suspend fun getCurrency() = currencyService.getCurrency()
 
 }

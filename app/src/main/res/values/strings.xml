@@ -5,4 +5,5 @@
     <string name="from">From</string>
     <string name="select_from">Select From</string>
     <string name="select_to">Select To</string>
+    <string name="initialVal">1</string>
 </resources>
