@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="no_margin">0dip</dimen>
+    <dimen name="margin_5">5dip</dimen>
+    <dimen name="margin_10">10dip</dimen>
+    <dimen name="margin_15">15dip</dimen>
+    <dimen name="margin_20">20dip</dimen>
+    <dimen name="margin_25">25dip</dimen>
+    <dimen name="margin_30">30dip</dimen>
+    <dimen name="margin_35">35dip</dimen>
+    <dimen name="margin_40">40dip</dimen>
+    <dimen name="margin_45">45dip</dimen>
+    <dimen name="margin_50">50dip</dimen>
+    <dimen name="margin_55">55dip</dimen>
+    <dimen name="margin_60">60dip</dimen>
+
+</resources>
