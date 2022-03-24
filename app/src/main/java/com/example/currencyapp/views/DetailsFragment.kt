@@ -61,8 +61,8 @@ class DetailsFragment : Fragment() {
         val sdf = SimpleDateFormat("yyyy-MM-dd")
         val arr = arrayOfNulls<String>(3)
         val cal = Calendar.getInstance()
-        for (num in 1..3) {
-            cal.add(Calendar.DATE, -num)
+        for (num in 0..2) {
+            cal.add(Calendar.DATE, -1)
             arr[num] = sdf.format(cal.time)
         }
         return arr
