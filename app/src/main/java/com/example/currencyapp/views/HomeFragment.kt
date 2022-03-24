@@ -11,6 +11,8 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.NavHostFragment
 import com.example.currencyapp.databinding.FragmentHomeBinding
 import com.example.currencyapp.network.RetrofitBuilder
 import com.example.currencyapp.network.Status
@@ -18,6 +20,10 @@ import com.example.currencyapp.repository.HomeRepository
 import com.example.currencyapp.viewmodel.HomeViewModel
 import com.example.currencyapp.viewmodelfactory.HomeViewModelFactory
 import dagger.hilt.android.AndroidEntryPoint
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.LinkedHashMap
 
 
 /**
@@ -40,6 +46,7 @@ class HomeFragment : Fragment() {
     // Currency symbols
     private var listOfCurrency = listOf<String>()
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initializeViewModel()
@@ -58,6 +65,18 @@ class HomeFragment : Fragment() {
         getCurrenciesList()
         getCurrency()
         init()
+        getLastTreeDates()
+    }
+
+    private fun getLastTreeDates(): Array<String?> {
+        val sdf = SimpleDateFormat("yyyy-MM-dd")
+        val arr = arrayOfNulls<String>(3)
+        val cal = Calendar.getInstance()
+        for (num in 1..3) {
+            cal.add(Calendar.DATE, -num)
+            arr[num] = sdf.format(cal.time)
+        }
+        return arr
     }
 
     /**
@@ -195,6 +214,8 @@ class HomeFragment : Fragment() {
             }
             false
         }
+
+
     }
 
     /**

@@ -23,4 +23,11 @@ interface CurrencyService {
         @Query("access_key") accessKey: String = IConstants.accessKey
     ): Response<CurrencyMain>
 
+    public var date: String
+
+    @GET()
+    suspend fun getLastThreeDaysHistory(
+        @Query("access_key") accessKey: String = IConstants.accessKey,
+    ): Response<CurrencyMain>
+
 }
