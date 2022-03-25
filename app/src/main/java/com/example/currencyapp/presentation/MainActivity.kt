@@ -1,9 +1,10 @@
-package com.example.currencyapp
+package com.example.currencyapp.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
+import androidx.activity.viewModels
+import com.example.currencyapp.R
+import com.example.currencyapp.presentation.viewmodel.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -13,10 +14,10 @@ import dagger.hilt.android.AndroidEntryPoint
  */
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+    private val viewModel: HomeViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
 
     }
 }

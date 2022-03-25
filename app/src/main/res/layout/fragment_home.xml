@@ -6,7 +6,12 @@
 
         <variable
             name="listener"
-            type="com.example.currencyapp.constants.EventListener" />
+            type="com.example.currencyapp.utils.EventListener" />
+
+        <variable
+            name="viewModel"
+            type="com.example.currencyapp.presentation.viewmodel.HomeViewModel" />
+
 
     </data>
 
@@ -106,7 +111,7 @@
                 android:layout_below="@id/etAmountTo"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/margin_30"
-                android:onClick="@{(view) -> listener.onButtonClick(view)}"
+                android:onClick="@{() -> listener.onButtonClick()}"
                 android:text="@string/details" />
 
         </RelativeLayout>

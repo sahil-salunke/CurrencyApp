@@ -1,8 +1,7 @@
-package com.example.currencyapp.views
+package com.example.currencyapp.presentation.views
 
 import android.R
 import android.os.Bundle
-import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -10,21 +9,12 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.NavGraphBuilder
-import androidx.navigation.Navigation
-import androidx.navigation.Navigation.findNavController
-import androidx.navigation.findNavController
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.example.currencyapp.constants.EventListener
+import com.example.currencyapp.utils.EventListener
 import com.example.currencyapp.databinding.FragmentHomeBinding
-import com.example.currencyapp.network.RetrofitBuilder
-import com.example.currencyapp.network.Status
-import com.example.currencyapp.repository.HomeRepository
-import com.example.currencyapp.viewmodel.HomeViewModel
-import com.example.currencyapp.viewmodelfactory.HomeViewModelFactory
+import com.example.currencyapp.presentation.viewmodel.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -40,7 +30,7 @@ class HomeFragment : Fragment(), EventListener {
     private lateinit var binding: FragmentHomeBinding
 
     // ViewModel instance
-    private lateinit var viewModel: HomeViewModel
+    private val viewModel: HomeViewModel by viewModels()
 
     // Currency rates values
     private var rates: LinkedHashMap<String, Double>? = null
@@ -48,11 +38,10 @@ class HomeFragment : Fragment(), EventListener {
     // Currency symbols
     private var listOfCurrency = listOf<String>()
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        initializeViewModel()
-    }
+    private lateinit var fromCurrency: String
+    private lateinit var toCurrency: String
+    private var fromCurrencyRate = 1.0
+    private var toCurrencyRate = 1.0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -65,45 +54,7 @@ class HomeFragment : Fragment(), EventListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        getCurrenciesList()
-        getCurrency()
         init()
-    }
-
-    /**
-     * View mode initialization at creation of fragment
-     */
-    private fun initializeViewModel() {
-        viewModel = ViewModelProvider(
-            this,
-            HomeViewModelFactory(HomeRepository(RetrofitBuilder.networkConnection()))
-        ).get(HomeViewModel::class.java)
-    }
-
-    /**
-     * Get currency symbols list
-     */
-    private fun getCurrenciesList() {
-        viewModel.getCurrencySymbols().observe(viewLifecycleOwner) {
-            it?.let { response ->
-                when (response.status) {
-                    Status.SUCCESS -> {
-                        Log.d(
-                            "APISUCCESS",
-                            "getCurrenciesList: " + response.data?.body()?.symbols
-                        )
-                        response.data?.body()?.symbols?.let { it1 -> setAdapter(it1) }
-                    }
-                    Status.ERROR -> {
-                        Log.d("ERROR", "getCurrenciesList: " + response.message)
-                    }
-                    Status.LOADING -> {
-                        binding.progress.visibility = View.VISIBLE
-                        Log.d("LOADING", "getCurrenciesList: LOADING")
-                    }
-                }
-            }
-        }
     }
 
     /**
@@ -122,40 +73,9 @@ class HomeFragment : Fragment(), EventListener {
     }
 
     /**
-     * Get currency rates
-     */
-    private fun getCurrency() {
-        viewModel.getCurrency().observe(viewLifecycleOwner) {
-            it?.let { response ->
-                when (response.status) {
-                    Status.SUCCESS -> {
-                        Log.d(
-                            "APISUCCESS",
-                            "getCurrency: " + "base: " + response.data?.body()?.base
-                                    + "\nrates: " + response.data?.body()?.rates
-                        )
-                        rates = response.data?.body()?.rates
-                    }
-                    Status.ERROR -> {
-                        Log.d("ERROR", "getCurrency: " + response.message)
-                    }
-                    Status.LOADING -> {
-                        Log.d("LOADING", "getCurrency: LOADING")
-                    }
-                }
-            }
-        }
-    }
-
-    /**
      * Initializations and events handling
      */
     private fun init() {
-
-        var fromCurrency: String
-        var toCurrency: String
-        var fromCurrencyRate = 1.0
-        var toCurrencyRate = 1.0
 
         binding.spFrom.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
@@ -225,19 +145,29 @@ class HomeFragment : Fragment(), EventListener {
         if (actionId == EditorInfo.IME_ACTION_GO) {
             when (view.id) {
                 binding.etAmountFrom.id -> {
-                    Toast.makeText(requireContext(), "" + id, Toast.LENGTH_SHORT).show()
+                    val fromValue = binding.etAmountFrom.text.toString().toDoubleOrNull()
+                    binding.etAmountTo.setText(
+                        getConvertedCurrency(
+                            fromCurrencyRate,
+                            toCurrencyRate, fromValue
+                        ).toString()
+                    )
                 }
                 binding.etAmountTo.id -> {
-                    Toast.makeText(requireContext(), "" + id, Toast.LENGTH_SHORT).show()
+                    val fromValue = binding.etAmountFrom.text.toString().toDoubleOrNull()
+                    binding.etAmountTo.setText(
+                        getConvertedCurrency(
+                            fromCurrencyRate,
+                            toCurrencyRate, fromValue
+                        ).toString()
+                    )
                 }
             }
         }
         return true
     }
 
-    override fun onButtonClick(view: View) {
-        Toast.makeText(requireContext(), "" + view.id, Toast.LENGTH_SHORT).show()
-
+    override fun onButtonClick() {
         findNavController().navigate(HomeFragmentDirections.actionHomeToDetails())
 
     }

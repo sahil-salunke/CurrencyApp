@@ -1,4 +1,4 @@
-package com.example.currencyapp.constants
+package com.example.currencyapp.utils
 
 /**
  * A class to hold constant values which can be used all over the project

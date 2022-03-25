@@ -1,4 +1,4 @@
-package com.example.currencyapp.constants
+package com.example.currencyapp.utils
 
 import android.view.KeyEvent
 import android.view.View
@@ -8,10 +8,8 @@ import android.view.View
  */
 interface EventListener {
 
-    fun onItemSelected(view: View, actionId: Int, event: KeyEvent?) : Boolean
+    fun onItemSelected(view: View, actionId: Int, event: KeyEvent?): Boolean
 
-    fun onButtonClick(view: View)
-
-
+    fun onButtonClick()
 
 }

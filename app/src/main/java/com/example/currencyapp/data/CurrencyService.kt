@@ -1,10 +1,8 @@
-package com.example.currencyapp.network
+package com.example.currencyapp.data
 
-import com.example.currencyapp.constants.IConstants
-import com.example.currencyapp.model.CurrencyMain
-import com.example.currencyapp.model.CurrencyNames
-import retrofit2.Call
-import retrofit2.Response
+import com.example.currencyapp.utils.IConstants
+import com.example.currencyapp.data.containers.CurrencyMain
+import com.example.currencyapp.data.containers.CurrencyNames
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -18,13 +16,13 @@ interface CurrencyService {
 
     @GET("symbols")
     suspend fun getCountrySymbols(@Query("access_key") accessKey: String = IConstants.accessKey)
-            : Response<CurrencyNames>
+            : CurrencyNames
 
 
     @GET("latest")
     suspend fun getCurrency(
         @Query("access_key") accessKey: String = IConstants.accessKey
-    ): Response<CurrencyMain>
+    ): CurrencyMain
 
 
     @GET("{date}")
@@ -32,6 +30,6 @@ interface CurrencyService {
         @Path("date") date: String,
         @Query("access_key") accessKey: String,
         @Query("symbols") symbols: String
-    ): Response<CurrencyMain>
+    ): CurrencyMain
 
 }

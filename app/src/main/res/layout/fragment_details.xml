@@ -1,15 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
-        <com.github.mikephil.charting.charts.LineChart
-            android:id="@+id/lineChart"
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/llLastThreeDays"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/llTopTenCurrencies"
+            app:layout_constraintTop_toTopOf="parent">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <include
+                android:id="@+id/tvText1"
+                layout="@layout/history_textview" />
+
+            <include
+                android:id="@+id/tvText2"
+                layout="@layout/history_textview" />
+
+            <include
+                android:id="@+id/tvTex3"
+                layout="@layout/history_textview" />
+
+            <include
+                android:id="@+id/tvText4"
+                layout="@layout/history_textview" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/llTopTenCurrencies"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/llLastThreeDays"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <include
+                android:id="@+id/tvText1"
+                layout="@layout/history_textview" />
+
+            <include
+                android:id="@+id/tvText2"
+                layout="@layout/history_textview" />
+
+            <include
+                android:id="@+id/tvTex3"
+                layout="@layout/history_textview" />
+
+            <include
+                android:id="@+id/tvText4"
+                layout="@layout/history_textview" />
+
+            <include
+                android:id="@+id/tvText1"
+                layout="@layout/history_textview" />
+
+            <include
+                android:id="@+id/tvText2"
+                layout="@layout/history_textview" />
+
+            <include
+                android:id="@+id/tvTex3"
+                layout="@layout/history_textview" />
+
+            <include
+                android:id="@+id/tvText4"
+                layout="@layout/history_textview" />
+
+            <include
+                android:id="@+id/tvText1"
+                layout="@layout/history_textview" />
+
+            <include
+                android:id="@+id/tvText2"
+                layout="@layout/history_textview" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
 </layout>

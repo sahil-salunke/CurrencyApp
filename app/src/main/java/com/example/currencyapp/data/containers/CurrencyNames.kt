@@ -1,4 +1,4 @@
-package com.example.currencyapp.model
+package com.example.currencyapp.data.containers
 
 /**
  * Data class for country currency names
