@@ -10,6 +10,11 @@ import java.net.UnknownHostException
 import java.text.SimpleDateFormat
 import java.util.*
 
+/**
+ * Util class for common use logics
+ * @author Sahil Salunke
+ * @since 25/3/2022
+ */
 class Utils {
     companion object {
 

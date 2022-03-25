@@ -3,6 +3,11 @@ package com.example.currencyapp.presentation
 import org.json.JSONObject
 import retrofit2.HttpException
 
+/**
+ * A class to manage network exceptions
+ * @author Sahil Salunke
+ * @since 25/3/2022
+ */
 open class NetworkErrorException(
     val errorCode: Int = -1,
     val errorMessage: String,

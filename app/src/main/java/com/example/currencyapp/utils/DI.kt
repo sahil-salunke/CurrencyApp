@@ -19,6 +19,11 @@ import java.io.File
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
+/**
+ * All Dependancy injection included in common
+ * @author Sahil Salunke
+ * @since 25/3/2022
+ */
 @Module
 @Suppress("unused")
 @InstallIn(SingletonComponent::class)
