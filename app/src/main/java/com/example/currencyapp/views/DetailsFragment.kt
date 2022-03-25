@@ -1,6 +1,7 @@
 package com.example.currencyapp.views
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.currencyapp.databinding.FragmentDetailsBinding
 import com.example.currencyapp.network.RetrofitBuilder
+import com.example.currencyapp.network.Status
 import com.example.currencyapp.repository.HomeRepository
 import com.example.currencyapp.viewmodel.HomeViewModel
 import com.example.currencyapp.viewmodelfactory.HomeViewModelFactory
@@ -29,6 +31,9 @@ class DetailsFragment : Fragment() {
     // ViewModel instance
     private lateinit var viewModel: HomeViewModel
 
+    // Last three dates array
+    private val arr = arrayOfNulls<String>(3)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initializeViewModel()
@@ -45,6 +50,7 @@ class DetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         getLastTreeDates()
+        getLastThreeDaysData(arr[0].toString(), "INR,USD")
     }
 
     /**
@@ -57,15 +63,42 @@ class DetailsFragment : Fragment() {
         ).get(HomeViewModel::class.java)
     }
 
-    private fun getLastTreeDates(): Array<String?> {
+    /**
+     * Get last three dates
+     */
+    private fun getLastTreeDates() {
         val sdf = SimpleDateFormat("yyyy-MM-dd")
-        val arr = arrayOfNulls<String>(3)
         val cal = Calendar.getInstance()
         for (num in 0..2) {
             cal.add(Calendar.DATE, -1)
             arr[num] = sdf.format(cal.time)
         }
-        return arr
+    }
+
+    /**
+     * Get last three days history
+     */
+    private fun getLastThreeDaysData(date: String, symbols: String) {
+        viewModel.getLastThreeDaysData(date, symbols).observe(viewLifecycleOwner) {
+            it?.let { response ->
+                when (response.status) {
+                    Status.SUCCESS -> {
+                        Log.d(
+                            "APISUCCESS",
+                            "getCurrency: " + "base: " + response.data?.body()?.base
+                                    + "\nrates: " + response.data?.body()?.rates
+                        )
+                        Log.d("APISUCCESS", "getCurrency: APISUCCESS")
+                    }
+                    Status.ERROR -> {
+                        Log.d("ERROR", "getCurrency: " + response.message)
+                    }
+                    Status.LOADING -> {
+                        Log.d("LOADING", "getCurrency: LOADING")
+                    }
+                }
+            }
+        }
     }
 
 }

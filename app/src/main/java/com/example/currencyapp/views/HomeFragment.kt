@@ -3,14 +3,22 @@ package com.example.currencyapp.views
 import android.R
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavGraphBuilder
+import androidx.navigation.Navigation
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
+import com.example.currencyapp.constants.EventListener
 import com.example.currencyapp.databinding.FragmentHomeBinding
 import com.example.currencyapp.network.RetrofitBuilder
 import com.example.currencyapp.network.Status
@@ -18,8 +26,6 @@ import com.example.currencyapp.repository.HomeRepository
 import com.example.currencyapp.viewmodel.HomeViewModel
 import com.example.currencyapp.viewmodelfactory.HomeViewModelFactory
 import dagger.hilt.android.AndroidEntryPoint
-import kotlin.collections.ArrayList
-import kotlin.collections.LinkedHashMap
 
 
 /**
@@ -28,7 +34,7 @@ import kotlin.collections.LinkedHashMap
  * @since 15/3/2022
  */
 @AndroidEntryPoint
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), EventListener {
 
     // Binder instance for home fragment
     private lateinit var binding: FragmentHomeBinding
@@ -53,6 +59,7 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
+        binding.listener = this
         return binding.root
     }
 
@@ -186,18 +193,18 @@ class HomeFragment : Fragment() {
             false
         }
 
-        binding.etAmountTo.setOnEditorActionListener { _, i, _ ->
-            if (i == EditorInfo.IME_ACTION_GO) {
-                val fromValue = binding.etAmountTo.text.toString().toDoubleOrNull()
-                binding.etAmountFrom.setText(
-                    getConvertedCurrency(
-                        toCurrencyRate,
-                        fromCurrencyRate, fromValue
-                    ).toString()
-                )
-            }
-            false
-        }
+//        binding.etAmountTo.setOnEditorActionListener { _, i, _ ->
+//            if (i == EditorInfo.IME_ACTION_GO) {
+//                val fromValue = binding.etAmountTo.text.toString().toDoubleOrNull()
+//                binding.etAmountFrom.setText(
+//                    getConvertedCurrency(
+//                        toCurrencyRate,
+//                        fromCurrencyRate, fromValue
+//                    ).toString()
+//                )
+//            }
+//            false
+//        }
 
 
     }
@@ -213,5 +220,27 @@ class HomeFragment : Fragment() {
         val inEuro = value?.div(fromCurrencyRate)
         return inEuro!!.times(toCurrencyRate)
     }
+
+    override fun onItemSelected(view: View, actionId: Int, event: KeyEvent?): Boolean {
+        if (actionId == EditorInfo.IME_ACTION_GO) {
+            when (view.id) {
+                binding.etAmountFrom.id -> {
+                    Toast.makeText(requireContext(), "" + id, Toast.LENGTH_SHORT).show()
+                }
+                binding.etAmountTo.id -> {
+                    Toast.makeText(requireContext(), "" + id, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+        return true
+    }
+
+    override fun onButtonClick(view: View) {
+        Toast.makeText(requireContext(), "" + view.id, Toast.LENGTH_SHORT).show()
+
+        findNavController().navigate(HomeFragmentDirections.actionHomeToDetails())
+
+    }
+
 
 }

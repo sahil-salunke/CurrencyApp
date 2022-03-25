@@ -34,4 +34,13 @@ class HomeViewModel @Inject constructor(private val mainRepository: HomeReposito
         }
     }
 
+    fun getLastThreeDaysData(date: String, symbols: String) = liveData(Dispatchers.IO) {
+        emit(Resource.loading(data = null))
+        try {
+            emit(Resource.success(data = mainRepository.getLastThreeDaysData(date, symbols)))
+        } catch (exception: Exception) {
+            emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
+        }
+    }
+
 }
