@@ -20,8 +20,6 @@ class DetailsFragment : Fragment() {
     // Binder instance for home fragment
     private lateinit var binding: FragmentDetailsBinding
 
-    // ViewModel instance
-    private val viewModel: HomeViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

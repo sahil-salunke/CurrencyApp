@@ -6,6 +6,7 @@ import com.example.currencyapp.domain.HistoryUseCase
 import com.example.currencyapp.domain.SymbolsUseCase
 import com.example.currencyapp.presentation.State
 import com.example.currencyapp.utils.Utils
+import com.example.currencyapp.utils.Utils.Companion.getLastTreeDates
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.flow
@@ -14,17 +15,13 @@ import javax.inject.Inject
 /**
  * ViewModel class to work as a bridge between UI and business logic
  * @author Sahil Salunke
- * @since 25/3/2022
+ * @since 26/3/2022
  */
 @HiltViewModel
-class HomeViewModel @Inject constructor(
-    private val historyUseCase: HistoryUseCase,
-    private val currencyUseCase: CurrencyUseCase,
-    private val symbolsUseCase: SymbolsUseCase
-) :
+class DetailViewModel @Inject constructor(private val historyUseCase: HistoryUseCase) :
     ViewModel() {
 
-    fun getHistoryResponse(dates: Array<String?> = Utils.getLastTreeDates(), symbols: String) =
+    fun getHistoryResponse(dates: Array<String?> = getLastTreeDates(), symbols: String) =
         flow {
             emit(State.LoadingState)
             try {
@@ -36,25 +33,4 @@ class HomeViewModel @Inject constructor(
             }
         }
 
-    fun getCurrencyResponse() = flow {
-        emit(State.LoadingState)
-        try {
-            delay(1000)
-            emit(State.DataState(currencyUseCase))
-        } catch (e: Exception) {
-            e.printStackTrace()
-            emit(Utils.resolveError(e))
-        }
-    }
-
-    fun getSymbolsResponse() = flow {
-        emit(State.LoadingState)
-        try {
-            delay(1000)
-            emit(State.DataState(symbolsUseCase))
-        } catch (e: Exception) {
-            e.printStackTrace()
-            emit(Utils.resolveError(e))
-        }
-    }
 }

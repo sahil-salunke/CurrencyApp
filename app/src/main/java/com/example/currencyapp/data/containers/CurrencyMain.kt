@@ -1,5 +1,8 @@
 package com.example.currencyapp.data.containers
 
+import androidx.databinding.BaseObservable
+import androidx.databinding.Bindable
+
 /**
  * Data class for currency conversion
  * @author Sahil Salunke
@@ -8,8 +11,9 @@ package com.example.currencyapp.data.containers
 data class CurrencyMain(
     val base: String? = null,
     val date: String? = null,
+    @Bindable
     val rates: LinkedHashMap<String, Double>,
     val success: Boolean? = null,
     val timestamp: Int? = null,
-)
+) : BaseObservable()
 

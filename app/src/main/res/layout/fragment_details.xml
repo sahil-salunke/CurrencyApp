@@ -16,21 +16,6 @@
             app:layout_constraintRight_toLeftOf="@id/llTopTenCurrencies"
             app:layout_constraintTop_toTopOf="parent">
 
-            <include
-                android:id="@+id/tvText1"
-                layout="@layout/history_textview" />
-
-            <include
-                android:id="@+id/tvText2"
-                layout="@layout/history_textview" />
-
-            <include
-                android:id="@+id/tvTex3"
-                layout="@layout/history_textview" />
-
-            <include
-                android:id="@+id/tvText4"
-                layout="@layout/history_textview" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -45,45 +30,7 @@
             app:layout_constraintLeft_toRightOf="@id/llLastThreeDays"
             app:layout_constraintTop_toTopOf="parent">
 
-            <include
-                android:id="@+id/tvText1"
-                layout="@layout/history_textview" />
 
-            <include
-                android:id="@+id/tvText2"
-                layout="@layout/history_textview" />
-
-            <include
-                android:id="@+id/tvTex3"
-                layout="@layout/history_textview" />
-
-            <include
-                android:id="@+id/tvText4"
-                layout="@layout/history_textview" />
-
-            <include
-                android:id="@+id/tvText1"
-                layout="@layout/history_textview" />
-
-            <include
-                android:id="@+id/tvText2"
-                layout="@layout/history_textview" />
-
-            <include
-                android:id="@+id/tvTex3"
-                layout="@layout/history_textview" />
-
-            <include
-                android:id="@+id/tvText4"
-                layout="@layout/history_textview" />
-
-            <include
-                android:id="@+id/tvText1"
-                layout="@layout/history_textview" />
-
-            <include
-                android:id="@+id/tvText2"
-                layout="@layout/history_textview" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 

@@ -61,5 +61,16 @@ class Utils {
             return arr
         }
 
+
+        // Function to hold logic of currency conversion
+        fun getConvertedCurrency(
+            fromCurrencyRate: Double?,
+            toCurrencyRate: Double?,
+            value: Double?
+        ): Double {
+            val inEuro = value?.div(fromCurrencyRate!!)
+            return inEuro!!.times(toCurrencyRate!!)
+        }
+
     }
 }
