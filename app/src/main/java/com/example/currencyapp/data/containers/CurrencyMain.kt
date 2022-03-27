@@ -1,4 +1,7 @@
-package com.example.currencyapp.model
+package com.example.currencyapp.data.containers
+
+import androidx.databinding.BaseObservable
+import androidx.databinding.Bindable
 
 /**
  * Data class for currency conversion
@@ -7,9 +10,10 @@ package com.example.currencyapp.model
  */
 data class CurrencyMain(
     val base: String? = null,
-    val date: String? = null,
+    val date: String,
+    @Bindable
     val rates: LinkedHashMap<String, Double>,
     val success: Boolean? = null,
     val timestamp: Int? = null,
-)
+) : BaseObservable()
 

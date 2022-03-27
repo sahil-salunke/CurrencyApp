@@ -6,7 +6,12 @@
 
         <variable
             name="listener"
-            type="com.example.currencyapp.constants.EventListener" />
+            type="com.example.currencyapp.utils.EventListener" />
+
+        <variable
+            name="viewModel"
+            type="com.example.currencyapp.presentation.viewmodel.HomeViewModel" />
+
 
     </data>
 
@@ -32,21 +37,13 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvFrom"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/margin_25"
-                android:layout_toStartOf="@id/ivCenter"
-                android:gravity="center"
-                android:text="@string/select_from"
-                android:visibility="gone" />
-
-            <Spinner
+            <androidx.appcompat.widget.AppCompatSpinner
                 android:id="@+id/spFrom"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/margin_25"
-                android:layout_below="@id/tvFrom"
-                android:layout_toStartOf="@id/ivCenter" />
+                android:layout_toStartOf="@id/ivCenter"
+                android:entries="@{viewModel.fromCurrencies}"
+                android:onItemSelected="@{(parent,view,pos,id)->listener.onSelectItem(parent,view,pos,id)}" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/ivCenter"
@@ -58,44 +55,54 @@
                 android:background="@android:color/darker_gray"
                 app:srcCompat="@drawable/ic_compare_arrows" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvTo"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/margin_25"
-                android:layout_toEndOf="@id/ivCenter"
-                android:gravity="center"
-                android:text="@string/select_to"
-                android:visibility="gone" />
-
-            <Spinner
+            <androidx.appcompat.widget.AppCompatSpinner
                 android:id="@+id/spTo"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/margin_25"
-                android:layout_below="@id/tvTo"
-                android:layout_toEndOf="@id/ivCenter" />
+                android:layout_toEndOf="@id/ivCenter"
+                android:entries="@{viewModel.toCurrencies}"
+                android:onItemSelected="@{(parent,view,pos,id)->listener.onSelectItem(parent,view,pos,id)}" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvFrom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/spFrom"
+                android:layout_marginTop="@dimen/margin_30"
+                android:text="@string/from" />
 
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/etAmountFrom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/spFrom"
-                android:layout_marginTop="@dimen/margin_30"
+                android:layout_marginTop="@dimen/margin_60"
                 android:layout_toStartOf="@id/ivCenter"
-                android:hint="@string/from"
                 android:imeOptions="actionGo"
                 android:inputType="numberDecimal"
-                android:text="@string/initialVal" />
+                android:onEditorAction="@{(view,actionId,event) -> listener.onGoButtonClick(view,actionId,event)}"
+                android:text="@{viewModel.fromValue.toString()}" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/spTo"
+                android:layout_marginTop="@dimen/margin_30"
+                android:layout_toEndOf="@id/ivCenter"
+                android:text="@string/from" />
 
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/etAmountTo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/spTo"
-                android:layout_marginTop="@dimen/margin_30"
+                android:layout_marginTop="@dimen/margin_60"
                 android:layout_toEndOf="@id/ivCenter"
-                android:hint="@string/to"
                 android:imeOptions="actionGo"
-                android:inputType="numberDecimal" />
+                android:inputType="numberDecimal"
+                android:onEditorAction="@{(view,actionId,event) -> listener.onGoButtonClick(view,actionId,event)}"
+                android:text="@{viewModel.toValue.toString()}" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btDetails"
@@ -104,7 +111,9 @@
                 android:layout_below="@id/etAmountTo"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/margin_30"
-                android:text="@string/details" />
+                android:onClick="@{() -> listener.onButtonClick()}"
+                android:text="@string/details"
+                android:theme="@style/Widget.MaterialComponents.Button.UnelevatedButton" />
 
         </RelativeLayout>
 

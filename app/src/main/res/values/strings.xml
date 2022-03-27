@@ -6,4 +6,9 @@
     <string name="select_from">Select From</string>
     <string name="select_to">Select To</string>
     <string name="initialVal">1</string>
+    <string name="history">History of past 3 days</string>
+    <string name="topCurrency">Top 10 Currencies</string>
+    <string name="currencyHistoryFormat">%.0f %s = %.3f %s</string>
+    <string name="currencyHistoryFormatDate">On %s</string>
+    <string name="currencyFormat">%.3f</string>
 </resources>

@@ -1,9 +1,9 @@
-package com.example.currencyapp
+package com.example.currencyapp.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
+import androidx.activity.viewModels
+import com.example.currencyapp.R
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -16,10 +16,5 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        val navHostFragment: NavHostFragment = supportFragmentManager
-            .findFragmentById(R.id.container) as NavHostFragment
-        navHostFragment.findNavController().setGraph(R.navigation.nav_graph)
-
     }
 }

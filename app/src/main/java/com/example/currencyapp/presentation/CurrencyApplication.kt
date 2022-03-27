@@ -1,4 +1,4 @@
-package com.example.currencyapp
+package com.example.currencyapp.presentation
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
