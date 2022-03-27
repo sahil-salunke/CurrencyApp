@@ -1,36 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.currencyapp.presentation.viewmodel.DetailViewModel" />
+
+        <variable
+            name="topCurrencyAdapter"
+            type="com.example.currencyapp.presentation.adapters.CurrencyViewAdapter" />
+
+        <variable
+            name="historyAdapter"
+            type="com.example.currencyapp.presentation.adapters.HistoryViewAdapter" />
+
+    </data>
+
     <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:layout_marginTop="@dimen/margin_10"
+        android:orientation="vertical">
 
         <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/llLastThreeDays"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toLeftOf="@id/llTopTenCurrencies"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvTitle1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/history"
+                android:textAppearance="@style/TextAppearance.Material3.BodyLarge" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvTitle2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/topCurrency"
+                android:textAppearance="@style/TextAppearance.Material3.BodyLarge" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
-
         <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/llTopTenCurrencies"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toRightOf="@id/llLastThreeDays"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_marginTop="@dimen/margin_10"
+            android:orientation="horizontal">
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvHistoryCurrencies"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.8"
+                android:adapter="@{historyAdapter}"
+                android:background="@drawable/border"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvTopCurrencies"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/border"
+                android:adapter="@{topCurrencyAdapter}"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 

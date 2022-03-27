@@ -10,7 +10,7 @@ import androidx.databinding.Bindable
  */
 data class CurrencyMain(
     val base: String? = null,
-    val date: String? = null,
+    val date: String,
     @Bindable
     val rates: LinkedHashMap<String, Double>,
     val success: Boolean? = null,

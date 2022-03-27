@@ -13,13 +13,7 @@ import javax.inject.Inject
 class HistoryUseCase @Inject constructor(
     private val apIs: CurrencyService
 ) {
-    private lateinit var currencyMain: CurrencyMain
-
-    suspend operator fun invoke(dates: Array<String?>, symbols: String): CurrencyMain {
-        for (date in dates) {
-            currencyMain =
-                apIs.getLastThreeDaysHistory(dates.toString(), IConstants.accessKey, symbols)
-        }
-        return currencyMain
+    suspend operator fun invoke(date: String, symbols: String): CurrencyMain {
+        return apIs.getLastThreeDaysHistory(date, IConstants.accessKey, symbols)
     }
 }

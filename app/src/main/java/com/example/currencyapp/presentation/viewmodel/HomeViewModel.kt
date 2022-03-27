@@ -33,7 +33,7 @@ class HomeViewModel @Inject constructor(private val currencyUseCase: CurrencyUse
         get() = _toCurrenciesRates
 
     // Currency rates values
-    private var rates: LinkedHashMap<String, Double>? = null
+    var rates: LinkedHashMap<String, Double>? = null
 
     private lateinit var fromCurrency: String
     private lateinit var toCurrency: String

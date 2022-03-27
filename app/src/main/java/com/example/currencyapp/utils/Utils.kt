@@ -1,6 +1,7 @@
 package com.example.currencyapp.utils
 
 import android.accounts.NetworkErrorException
+import com.example.currencyapp.data.containers.Rates
 import com.example.currencyapp.presentation.AuthenticationException
 import com.example.currencyapp.presentation.State
 import retrofit2.HttpException
@@ -9,6 +10,8 @@ import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.LinkedHashMap
 
 /**
  * Util class for common use logics
@@ -51,16 +54,16 @@ class Utils {
 
         // function to get last three dates
         fun getLastTreeDates(): Array<String?> {
-            val arr = arrayOfNulls<String>(3)
-            val sdf = SimpleDateFormat("yyyy-MM-dd")
+            val arr = arrayOfNulls<String>(4)
+            val sdf = SimpleDateFormat(IConstants.DATE_FORMAT)
             val cal = Calendar.getInstance()
-            for (num in 0..2) {
+            arr[0] = sdf.format(cal.time)
+            for (num in 1..3) {
                 cal.add(Calendar.DATE, -1)
                 arr[num] = sdf.format(cal.time)
             }
             return arr
         }
-
 
         // Function to hold logic of currency conversion
         fun getConvertedCurrency(
@@ -72,5 +75,20 @@ class Utils {
             return inEuro!!.times(toCurrencyRate!!)
         }
 
+        // Function to convert Linked hash map to arraylist
+        fun linkedHashMapToArrayList(hash: LinkedHashMap<String, Double>?): ArrayList<Rates> {
+            val arrayList: ArrayList<Rates> = ArrayList()
+            hash!!.forEach { (s, d) ->
+                val rate = Rates()
+                rate.currency = s
+                rate.rate = d
+                arrayList.add(rate)
+            }
+            val tempList: ArrayList<Rates> = ArrayList()
+            for (i in 0 until 10) {
+                tempList.add(arrayList[i])
+            }
+            return tempList
+        }
     }
 }
