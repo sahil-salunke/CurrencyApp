@@ -58,6 +58,8 @@ class DetailsFragment : Fragment() {
         binding.topCurrencyAdapter = currencyViewAdapter
 
         viewModel.currencyHistory.observe(viewLifecycleOwner) {
+            binding.progress.visibility = View.GONE
+            binding.rvHistoryCurrencies.visibility = View.VISIBLE
             val historyAdapter = viewModel.currencyHistory.value?.let { HistoryViewAdapter(it) }
             binding.historyAdapter = historyAdapter
         }
