@@ -1,6 +1,7 @@
 package com.example.currencyapp.utils
 
 import android.accounts.NetworkErrorException
+import androidx.appcompat.widget.AppCompatSpinner
 import com.example.currencyapp.data.containers.Rates
 import com.example.currencyapp.presentation.AuthenticationException
 import com.example.currencyapp.presentation.State
@@ -89,6 +90,18 @@ class Utils {
                 tempList.add(arrayList[i])
             }
             return tempList
+        }
+
+        /**
+         * Swap selected currencies
+         */
+        fun swapSelectedCurrencies(
+            spFrom: AppCompatSpinner,
+            spTo: AppCompatSpinner,
+        ) {
+            val spinner1Index: Int = spFrom.selectedItemPosition
+            spFrom.setSelection(spTo.selectedItemPosition)
+            spTo.setSelection(spinner1Index)
         }
     }
 }

@@ -53,6 +53,7 @@
                 android:layout_marginStart="@dimen/margin_5"
                 android:layout_marginEnd="@dimen/margin_5"
                 android:background="@android:color/darker_gray"
+                android:onClick="@{(v) -> listener.onButtonClick(v)}"
                 app:srcCompat="@drawable/ic_compare_arrows" />
 
             <androidx.appcompat.widget.AppCompatSpinner
@@ -90,7 +91,7 @@
                 android:layout_below="@id/spTo"
                 android:layout_marginTop="@dimen/margin_30"
                 android:layout_toEndOf="@id/ivCenter"
-                android:text="@string/from" />
+                android:text="@string/to" />
 
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/etAmountTo"
@@ -111,7 +112,7 @@
                 android:layout_below="@id/etAmountTo"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/margin_30"
-                android:onClick="@{() -> listener.onButtonClick()}"
+                android:onClick="@{(v) -> listener.onButtonClick(v)}"
                 android:text="@string/details"
                 android:theme="@style/Widget.MaterialComponents.Button.UnelevatedButton" />
 

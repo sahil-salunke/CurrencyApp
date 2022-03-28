@@ -11,7 +11,7 @@ interface EventListener {
 
     fun onGoButtonClick(view: View, actionId: Int, event: KeyEvent?): Boolean
 
-    fun onButtonClick()
+    fun onButtonClick(view: View)
 
     fun onSelectItem(parent: AdapterView<*>?, view: View?, pos: Int, id: Long)
 

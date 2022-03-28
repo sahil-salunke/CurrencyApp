@@ -1,6 +1,5 @@
 package com.example.currencyapp.presentation.views
 
-import android.os.Build
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.LayoutInflater
@@ -8,16 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.AdapterView
-import androidx.annotation.RequiresApi
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.currencyapp.R
 import com.example.currencyapp.data.containers.Rates
-import com.example.currencyapp.utils.EventListener
 import com.example.currencyapp.databinding.FragmentHomeBinding
 import com.example.currencyapp.presentation.viewmodel.HomeViewModel
+import com.example.currencyapp.utils.EventListener
 import com.example.currencyapp.utils.IConstants
 import com.example.currencyapp.utils.Utils
 import dagger.hilt.android.AndroidEntryPoint
@@ -92,16 +90,46 @@ class HomeFragment : Fragment(), EventListener {
     /**
      * Manages the button click events
      */
-    @RequiresApi(Build.VERSION_CODES.N)
-    override fun onButtonClick() {
-        val arrayList: ArrayList<Rates> = Utils.linkedHashMapToArrayList(viewModel.rates)
+    override fun onButtonClick(view: View) {
+        when (view.id) {
+            binding.ivCenter.id -> {
+                swapSelectedCurrencies()
+            }
+            binding.btDetails.id -> {
+                moveToDetailsScreenWithData()
+            }
+        }
+    }
 
+    /**
+     * Swap selected currencies
+     */
+    private fun swapSelectedCurrencies() {
+        Utils.swapSelectedCurrencies(binding.spFrom, binding.spTo)
+        viewModel.onFromSelectedItem(binding.spTo.selectedItem.toString())
+        viewModel.onToSelectedItem(binding.spFrom.selectedItem.toString())
+        setInitialState()
+    }
+
+    /**
+     * Collect data and move to details screen
+     */
+    private fun moveToDetailsScreenWithData() {
+        val arrayList: ArrayList<Rates> = Utils.linkedHashMapToArrayList(viewModel.rates)
         val bundle = bundleOf(
             IConstants.SYMBOLS to binding.spFrom.selectedItem.toString() + "," +
                     binding.spTo.selectedItem.toString(),
             IConstants.RATES to arrayList
         )
         findNavController().navigate(R.id.action_home_to_details, bundle)
+    }
+
+    /**
+     * Reset input fields
+     */
+    private fun setInitialState() {
+        binding.etAmountFrom.setText(resources.getString(R.string.initialVal))
+        binding.etAmountTo.setText("")
     }
 
 }
