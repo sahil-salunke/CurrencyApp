@@ -85,6 +85,8 @@ class HomeFragment : Fragment(), EventListener {
                 viewModel.onToSelectedItem(binding.spTo.selectedItem.toString())
             }
         }
+        val fromValue = binding.etAmountFrom.text.toString().toDoubleOrNull()
+        viewModel.onToInputValue(fromValue)
     }
 
     /**
