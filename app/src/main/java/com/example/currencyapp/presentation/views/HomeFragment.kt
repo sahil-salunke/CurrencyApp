@@ -106,9 +106,11 @@ class HomeFragment : Fragment(), EventListener {
      */
     private fun swapSelectedCurrencies() {
         Utils.swapSelectedCurrencies(binding.spFrom, binding.spTo)
-        viewModel.onFromSelectedItem(binding.spTo.selectedItem.toString())
-        viewModel.onToSelectedItem(binding.spFrom.selectedItem.toString())
         setInitialState()
+        viewModel.onFromSelectedItem(binding.spFrom.selectedItem.toString())
+        viewModel.onToSelectedItem(binding.spTo.selectedItem.toString())
+        val fromValue = binding.etAmountFrom.text.toString().toDoubleOrNull()
+        viewModel.onToInputValue(fromValue)
     }
 
     /**
