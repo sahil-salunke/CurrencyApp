@@ -6,9 +6,11 @@ import com.example.currencyapp.data.containers.Rates
 import com.example.currencyapp.presentation.AuthenticationException
 import com.example.currencyapp.presentation.State
 import retrofit2.HttpException
+import java.math.RoundingMode
 import java.net.ConnectException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
+import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
